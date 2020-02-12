@@ -10,7 +10,7 @@ use Arcticfalcon\EmvQr\Iso4217Currency;
 
 class EmvDynamicQrTest extends TestCase
 {
-    public function test_that_a_dynamic_qr_is_generated_correctly()
+    public function testThatADynamicQrIsGeneratedCorrectly()
     {
         $original = '00020101021250150011203487045355126002200703657300040026727135204481653030325406105.505802AR5913Vinoteca S.A.6008Balcarce622005168hqyFJ6eD7vTWXL5630465C7';
 

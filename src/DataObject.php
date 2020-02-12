@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the arcticfalcon/emv-qr-cps library.
  *
@@ -6,20 +7,26 @@
  * file that was distributed with this source code.
  *
  * @copyright Copyright (c) Juan Falcón <jcfalcon@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT
+ * @license   http://opensource.org/licenses/MIT MIT
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Arcticfalcon\EmvQr;
 
 abstract class DataObject
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $id;
-    /** @var int */
+    /**
+     * @var int
+     */
     protected $length;
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $value;
 
     public function __construct(string $id, int $length, string $value)
@@ -61,21 +68,21 @@ abstract class DataObject
         ];
     }
 
-    protected function assertLength(int $length, string $value)
+    protected function assertLength(int $length, string $value): void
     {
         if (strlen($value) !== $length) {
             throw new EmvQrException('Invalid DataObject value length: ' . $value);
         }
     }
 
-    protected function assertMaxLength(int $maxLength, string $value)
+    protected function assertMaxLength(int $maxLength, string $value): void
     {
         if (strlen($value) > $maxLength) {
             throw new EmvQrException('Invalid DataObject value length: ' . $value);
         }
     }
 
-    protected function assertPossibleValues(array $possible, string $value)
+    protected function assertPossibleValues(array $possible, string $value): void
     {
         if (! in_array($value, $possible)) {
             throw new EmvQrException('Invalid DataObject possible value: ' . $value);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the arcticfalcon/emv-qr-cps library.
  *
@@ -6,7 +7,7 @@
  * file that was distributed with this source code.
  *
  * @copyright Copyright (c) Juan Falcón <jcfalcon@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT
+ * @license   http://opensource.org/licenses/MIT MIT
  */
 
 declare(strict_types=1);
@@ -120,7 +121,7 @@ class EmvDynamicQr
     }
 
     /**
-     * @param MerchantAccountInformation $merchantAccountInformation
+     * @param  MerchantAccountInformation $merchantAccountInformation
      * @return EmvDynamicQr
      */
     public function addMerchantAccountInformation(string $id, string $value): EmvDynamicQr
@@ -133,7 +134,7 @@ class EmvDynamicQr
     }
 
     /**
-     * @param MerchantCategoryCode $merchantCategoryCode
+     * @param  MerchantCategoryCode $merchantCategoryCode
      * @return EmvDynamicQr
      */
     public function setMerchantCategoryCode(string $merchantCategoryCode): EmvDynamicQr
@@ -143,7 +144,7 @@ class EmvDynamicQr
     }
 
     /**
-     * @param TransactionCurrency $transactionCurrency
+     * @param  TransactionCurrency $transactionCurrency
      * @return EmvDynamicQr
      */
     public function setTransactionCurrency(string $transactionCurrency): EmvDynamicQr
@@ -153,7 +154,7 @@ class EmvDynamicQr
     }
 
     /**
-     * @param TransactionAmount $transactionAmount
+     * @param  TransactionAmount $transactionAmount
      * @return EmvDynamicQr
      */
     public function setTransactionAmount(string $transactionAmount): EmvDynamicQr
@@ -163,7 +164,7 @@ class EmvDynamicQr
     }
 
     /**
-     * @param TipOrConvenienceIndicator $tipOrConvenienceIndicator
+     * @param  TipOrConvenienceIndicator $tipOrConvenienceIndicator
      * @return EmvDynamicQr
      */
     public function setTipOrConvenienceIndicator(string $tipOrConvenienceIndicator): EmvDynamicQr
@@ -173,7 +174,7 @@ class EmvDynamicQr
     }
 
     /**
-     * @param ValueOfConvenienceFeeFixed $valueOfConvenienceFeeFixed
+     * @param  ValueOfConvenienceFeeFixed $valueOfConvenienceFeeFixed
      * @return EmvDynamicQr
      */
     public function setValueOfConvenienceFeeFixed(string $valueOfConvenienceFeeFixed): EmvDynamicQr
@@ -183,7 +184,7 @@ class EmvDynamicQr
     }
 
     /**
-     * @param ValueOfConvenienceFeePercentage $valueOfConvenienceFeePercentage
+     * @param  ValueOfConvenienceFeePercentage $valueOfConvenienceFeePercentage
      * @return EmvDynamicQr
      */
     public function setValueOfConvenienceFeePercentage(string $valueOfConvenienceFeePercentage): EmvDynamicQr
@@ -193,7 +194,7 @@ class EmvDynamicQr
     }
 
     /**
-     * @param CountryCode $countryCode
+     * @param  CountryCode $countryCode
      * @return EmvDynamicQr
      */
     public function setCountryCode(string $countryCode): EmvDynamicQr
@@ -203,7 +204,7 @@ class EmvDynamicQr
     }
 
     /**
-     * @param MerchantName $merchantName
+     * @param  MerchantName $merchantName
      * @return EmvDynamicQr
      */
     public function setMerchantName(string $merchantName): EmvDynamicQr
@@ -213,7 +214,7 @@ class EmvDynamicQr
     }
 
     /**
-     * @param MerchantCity $merchantCity
+     * @param  MerchantCity $merchantCity
      * @return EmvDynamicQr
      */
     public function setMerchantCity(string $merchantCity): EmvDynamicQr
@@ -223,7 +224,7 @@ class EmvDynamicQr
     }
 
     /**
-     * @param PostalCode $postalCode
+     * @param  PostalCode $postalCode
      * @return EmvDynamicQr
      */
     public function setPostalCode(string $postalCode): EmvDynamicQr
@@ -233,7 +234,7 @@ class EmvDynamicQr
     }
 
     /**
-     * @param Template $additionalData
+     * @param  Template $additionalData
      * @return EmvDynamicQr
      */
     public function setAdditionalData(string $additionalData): EmvDynamicQr
@@ -243,9 +244,8 @@ class EmvDynamicQr
     }
 
 
-    public function get()
+    public function get(): void
     {
-
     }
 
     public function __toString()
@@ -289,7 +289,7 @@ class EmvDynamicQr
         string $merchantName,
         string $merchantCity,
         string $amount
-    ) {
+    ): MerchantPayload {
         $merchantAccountInformation = new MerchantAccountInformation(
             $merchantAccountInformationId,
             new GloballyUniqueIdentifier($merchantAccountInformationValue)
@@ -308,10 +308,12 @@ class EmvDynamicQr
             new MerchantCity($merchantCity),
             null
         );
-        $merchantPayload->addMerchantAccountInformation(new MerchantAccountInformation(
-            '51',
-            new GloballyUniqueIdentifier('0070365730004002672713')
-        ));
+        $merchantPayload->addMerchantAccountInformation(
+            new MerchantAccountInformation(
+                '51',
+                new GloballyUniqueIdentifier('0070365730004002672713')
+            )
+        );
         return $merchantPayload;
     }
 }

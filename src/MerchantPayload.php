@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the arcticfalcon/emv-qr-cps library.
  *
@@ -6,10 +7,10 @@
  * file that was distributed with this source code.
  *
  * @copyright Copyright (c) Juan Falcón <jcfalcon@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT
+ * @license   http://opensource.org/licenses/MIT MIT
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Arcticfalcon\EmvQr;
 
@@ -31,52 +32,84 @@ use Arcticfalcon\EmvQr\Templates\MerchantAccountInformation;
 
 class MerchantPayload
 {
-    /** @var PayloadFormatIndicator */
+    /**
+     * @var PayloadFormatIndicator
+     */
     private $payloadFormatIndicator;
 
-    /** @var PointOfInitializationMethod */
+    /**
+     * @var PointOfInitializationMethod
+     */
     private $pointOfInitializationMethod;
 
-    /** @var MerchantAccountInformation[] */
+    /**
+     * @var MerchantAccountInformation[]
+     */
     private $merchantAccountInformationCollection;
 
-    /** @var MerchantCategoryCode */
+    /**
+     * @var MerchantCategoryCode
+     */
     private $merchantCategoryCode;
 
-    /** @var TransactionCurrency */
+    /**
+     * @var TransactionCurrency
+     */
     private $transactionCurrency;
 
-    /** @var TransactionAmount|NullDataObject */
+    /**
+     * @var TransactionAmount|NullDataObject
+     */
     private $transactionAmount;
 
-    /** @var TipOrConvenienceIndicator|NullDataObject */
+    /**
+     * @var TipOrConvenienceIndicator|NullDataObject
+     */
     private $tipOrConvenienceIndicator;
 
-    /** @var ValueOfConvenienceFeeFixed|NullDataObject */
+    /**
+     * @var ValueOfConvenienceFeeFixed|NullDataObject
+     */
     private $valueOfConvenienceFeeFixed;
 
-    /** @var ValueOfConvenienceFeePercentage|NullDataObject */
+    /**
+     * @var ValueOfConvenienceFeePercentage|NullDataObject
+     */
     private $valueOfConvenienceFeePercentage;
 
-    /** @var CountryCode */
+    /**
+     * @var CountryCode
+     */
     private $countryCode;
 
-    /** @var MerchantName */
+    /**
+     * @var MerchantName
+     */
     private $merchantName;
 
-    /** @var MerchantCity */
+    /**
+     * @var MerchantCity
+     */
     private $merchantCity;
 
-    /** @var PostalCode|NullDataObject */
+    /**
+     * @var PostalCode|NullDataObject
+     */
     private $postalCode;
 
-    /** @var Template|NullDataObject */
+    /**
+     * @var Template|NullDataObject
+     */
     private $additionalData;
 
-    /** @var Template|NullDataObject */
+    /**
+     * @var Template|NullDataObject
+     */
     private $merchantInformationLanguage;
 
-    /** @var Template|NullDataObject */
+    /**
+     * @var Template|NullDataObject
+     */
     private $unreservedTemplate;
 
     public function __construct(
@@ -151,19 +184,21 @@ class MerchantPayload
         return $data . (string) $crc;
     }
 
-    public function addMerchantAccountInformation(MerchantAccountInformation $information)
+    public function addMerchantAccountInformation(MerchantAccountInformation $information): void
     {
         $this->merchantAccountInformationCollection[] = $information;
 
         $this->assertTotalLength();
     }
 
-    public static function parse(string $data)
+    public static function parse(string $data): self
     {
         $parts = EmvQrHelper::splitCode($data);
 
         $reflection = new \ReflectionClass(static::class);
-        /** @var MerchantPayload $new */
+        /**
+ * @var MerchantPayload $new
+*/
         $new = $reflection->newInstanceWithoutConstructor();
 
         $mandatoryIds = [
@@ -200,9 +235,9 @@ class MerchantPayload
         }
 
         // ToDo: implement missing parts
-//        $this->additionalData
-//        $this->merchantInformationLanguage
-//        $this->unreservedTemplate
+        //        $this->additionalData
+        //        $this->merchantInformationLanguage
+        //        $this->unreservedTemplate
 
         // Validate:
         if ((string) $new !== $data) {
@@ -212,7 +247,7 @@ class MerchantPayload
         return $new;
     }
 
-    private function assertTotalLength()
+    private function assertTotalLength(): void
     {
         if (mb_strlen($this->__toString()) > 512) {
             throw new EmvQrException('Length of payload exceeded');
@@ -244,21 +279,33 @@ class MerchantPayload
         return $this->transactionCurrency;
     }
 
+    /**
+     * @return NullDataObject|TransactionAmount
+     */
     public function getTransactionAmount()
     {
         return $this->transactionAmount;
     }
 
+    /**
+     * @return NullDataObject|TipOrConvenienceIndicator
+     */
     public function getTipOrConvenienceIndicator()
     {
         return $this->tipOrConvenienceIndicator;
     }
 
+    /**
+     * @return NullDataObject|ValueOfConvenienceFeeFixed
+     */
     public function getValueOfConvenienceFeeFixed()
     {
         return $this->valueOfConvenienceFeeFixed;
     }
 
+    /**
+     * @return NullDataObject|ValueOfConvenienceFeePercentage
+     */
     public function getValueOfConvenienceFeePercentage()
     {
         return $this->valueOfConvenienceFeePercentage;
@@ -279,6 +326,9 @@ class MerchantPayload
         return $this->merchantCity;
     }
 
+    /**
+     * @return NullDataObject|PostalCode
+     */
     public function getPostalCode()
     {
         return $this->postalCode;

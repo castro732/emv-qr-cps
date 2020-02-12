@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the arcticfalcon/emv-qr-cps library.
  *
@@ -6,10 +7,10 @@
  * file that was distributed with this source code.
  *
  * @copyright Copyright (c) Juan Falcón <jcfalcon@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT
+ * @license   http://opensource.org/licenses/MIT MIT
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Arcticfalcon\EmvQr\DataObjects;
 
@@ -30,6 +31,9 @@ class CRC extends DataObject
         parent::__construct(static::getStaticId(), 4, sprintf('%04s', mb_strtoupper($checksum)));
     }
 
+    /**
+     * @return void
+     */
     public static function tryParse(string $data)
     {
         throw new \LogicException();

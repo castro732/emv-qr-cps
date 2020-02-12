@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the arcticfalcon/emv-qr-cps library.
  *
@@ -6,7 +7,7 @@
  * file that was distributed with this source code.
  *
  * @copyright Copyright (c) Juan Falcón <jcfalcon@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT
+ * @license   http://opensource.org/licenses/MIT MIT
  */
 
 declare(strict_types=1);
@@ -17,6 +18,8 @@ use Arcticfalcon\EmvQr\DataObjects\GloballyUniqueIdentifier;
 use Arcticfalcon\EmvQr\DataObjects\PaymentNetworkSpecific;
 use Arcticfalcon\EmvQr\EmvQrHelper;
 use Arcticfalcon\EmvQr\Template;
+use Exception;
+use LogicException;
 
 class MerchantAccountInformation extends Template
 {
@@ -33,13 +36,16 @@ class MerchantAccountInformation extends Template
         $this->assertValueLength();
     }
 
-    public function addTemplateDataObject(PaymentNetworkSpecific $object)
+    public function addTemplateDataObject(PaymentNetworkSpecific $object): void
     {
         $this->dataObjects[] = $object;
 
         $this->assertValueLength();
     }
 
+    /**
+     * @return null|self
+     */
     public static function tryParse(string $data)
     {
         try {
@@ -63,14 +69,14 @@ class MerchantAccountInformation extends Template
             }
 
             return $new;
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return null;
         }
     }
 
     public static function getStaticId(): string
     {
-        throw new \LogicException();
+        throw new LogicException();
     }
 
     public static function matchesId(string $id): bool
@@ -78,7 +84,7 @@ class MerchantAccountInformation extends Template
         return in_array($id, range(26, 51));
     }
 
-    private function assertValueLength()
+    private function assertValueLength(): void
     {
         $value = '';
         foreach ($this->dataObjects as $object) {
