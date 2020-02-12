@@ -27,6 +27,7 @@ use Arcticfalcon\EmvQr\DataObjects\TransactionAmount;
 use Arcticfalcon\EmvQr\DataObjects\TransactionCurrency;
 use Arcticfalcon\EmvQr\DataObjects\ValueOfConvenienceFeeFixed;
 use Arcticfalcon\EmvQr\DataObjects\ValueOfConvenienceFeePercentage;
+use Arcticfalcon\EmvQr\Templates\AdditionalDataField;
 use Arcticfalcon\EmvQr\Templates\MerchantAccountInformation;
 
 class EmvDynamicQr
@@ -235,9 +236,9 @@ class EmvDynamicQr
      * @param Template $additionalData
      * @return EmvDynamicQr
      */
-    public function setAdditionalData(Template $additionalData): EmvDynamicQr
+    public function setAdditionalData(string $additionalData): EmvDynamicQr
     {
-        $this->additionalData = $additionalData;
+        $this->additionalData = new AdditionalDataField($additionalData);
         return $this;
     }
 
