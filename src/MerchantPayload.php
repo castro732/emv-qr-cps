@@ -197,8 +197,8 @@ class MerchantPayload
 
         $reflection = new \ReflectionClass(static::class);
         /**
- * @var MerchantPayload $new
-*/
+         * @var MerchantPayload $new
+        */
         $new = $reflection->newInstanceWithoutConstructor();
 
         $mandatoryIds = [

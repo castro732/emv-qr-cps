@@ -21,9 +21,9 @@ use Arcticfalcon\EmvQr\Template;
 
 class AdditionalDataField extends Template
 {
-    public function __construct($value)
+    public function __construct($value, $id = '00')
     {
-        $identifier = new GloballyUniqueIdentifier($value);
+        $identifier = new GloballyUniqueIdentifier($value, $id);
 
         $this->dataObjects = [
             $identifier,

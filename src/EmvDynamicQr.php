@@ -239,7 +239,7 @@ class EmvDynamicQr
      */
     public function setAdditionalData(string $additionalData): EmvDynamicQr
     {
-        $this->additionalData = new AdditionalDataField($additionalData);
+        $this->additionalData = new AdditionalDataField($additionalData, '05');
         return $this;
     }
 

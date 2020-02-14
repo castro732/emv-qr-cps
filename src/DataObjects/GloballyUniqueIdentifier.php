@@ -18,11 +18,16 @@ use Arcticfalcon\EmvQr\DataObject;
 
 class GloballyUniqueIdentifier extends DataObject
 {
-    public function __construct(string $value)
+    public function __construct(string $value, string $id = '00')
     {
+        $this->assertMaxLength(2, $id);
         $this->assertMaxLength(32, $value);
 
-        parent::__construct(static::getStaticId(), strlen($value), $value);
+        if ($id === '00') {
+            parent::__construct(static::getStaticId(), strlen($value), $value);
+        } else {
+            parent::__construct($id, strlen($value), $value);
+        }
     }
 
     /**
